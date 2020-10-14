@@ -13,8 +13,8 @@ def filter_data(line, clean_mode):
         return not bool(re.search(r'[A-Za-z0-9]|《|》|「|」|【|】|（|）|“|‘|\*|\'|\-', line))
 
 def read_data():
-    src_lines = open('en-zh/UNv1.0.en-zh.en', 'r').readlines()
-    targ_lines = open('en-zh/UNv1.0.en-zh.zh', 'r', encoding='utf-8').readlines()
+    src_lines = open('../Data/en-zh/UNv1.0.en-zh.en', 'r').readlines()
+    targ_lines = open('../Data/en-zh/UNv1.0.en-zh.zh', 'r', encoding='utf-8').readlines()
 
     temp_src_lines = []
     temp_targ_lines = []
@@ -36,18 +36,18 @@ def read_data():
     targ_lines = random.sample(temp_targ_lines, 200000)
     
 
-    with open('cleaned_data/my_en-zh.en','w') as f:
+    with open('../Data/cleaned_data/my_en-zh.en','w') as f:
         for src in src_lines:
             f.write(src)
-    with open('cleaned_data/my_en-zh.zh','w') as f:
+    with open('../Data/cleaned_data/my_en-zh.zh','w') as f:
         for targ in targ_lines:
             f.write(targ)
 
 
 if __name__ == "__main__":
-    if not os.path.exists('cleaned_data/'):
-        os.makedirs('cleaned_data/')
-    if not (os.path.exists('cleaned_data/my_en-zh.en') or os.path.exists('cleaned_data/my_en-zh.en')):
+    if not os.path.exists('../Data/cleaned_data/'):
+        os.makedirs('../Data/cleaned_data/')
+    if not (os.path.exists('../Data/cleaned_data/my_en-zh.en') or os.path.exists('../Data/cleaned_data/my_en-zh.en')):
         print("Extracting 200K data from origin dataset...")
         read_data()
     print("Nothing to do...")
