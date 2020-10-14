@@ -43,12 +43,6 @@ def read_data():
         for targ in targ_lines:
             f.write(targ)
 
-def clean_data():
-    src_lines = open('cleaned_data/my_en-zh.en','r').readlines()
-    targ_lines = open('cleaned_data/my_en-zh.zh', 'r').readlines()
-
-
-
 
 if __name__ == "__main__":
     if not os.path.exists('cleaned_data/'):
@@ -56,4 +50,4 @@ if __name__ == "__main__":
     if not (os.path.exists('cleaned_data/my_en-zh.en') or os.path.exists('cleaned_data/my_en-zh.en')):
         print("Extracting 200K data from origin dataset...")
         read_data()
-    clean_data()
+    print("Nothing to do...")
