@@ -1,4 +1,5 @@
 import random, re, os
+from tqdm import tqdm
 
 def filter_data(line, clean_mode):
     line = line.strip()
@@ -18,10 +19,10 @@ def read_data():
 
     temp_src_lines = []
     temp_targ_lines = []
-    for i, src in enumerate(src_lines):
+    for i, src in enumerate(tqdm(src_lines)):
         targ = targ_lines[i]
         if filter_data(src, 'en') and filter_data(targ, 'zh'): # the order is important
-            if len(src) > 9 * len(targ) or len(targ) > 9 * len(src):
+            if len(src) > 50 or len(src) > 9 * len(targ) or len(targ) > 9 * len(src):
                 continue
             else:
                 temp_src_lines.append(src)
@@ -31,9 +32,9 @@ def read_data():
     print("en: %d, zh: %d" % (len(temp_src_lines), len(temp_targ_lines)))
 
     random.seed(666)
-    src_lines = random.sample(temp_src_lines, 200000)
+    src_lines = random.sample(temp_src_lines, 10000)
     random.seed(666)
-    targ_lines = random.sample(temp_targ_lines, 200000)
+    targ_lines = random.sample(temp_targ_lines, 10000)
     
 
     with open('../Data/cleaned_data/my_en-zh.en','w') as f:
