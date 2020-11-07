@@ -14,8 +14,7 @@ import torch.utils.data
 torch.manual_seed(11)
 device = torch.device("cuda")
 
-from google.colab import drive
-drive.mount('/content/drive')
+
 class LSTMN(nn.Module):
 
     ### PARAMETERS
@@ -554,8 +553,8 @@ def trainIters(encoder, decoder, lstmn, lstmn2, n_iters, print_every=100, plot_e
 
 
     training_pairs = []
-    eng = np.load('/content/drive/My Drive/lstmn/emb_en.npy',allow_pickle=True)
-    chn = np.load('/content/drive/My Drive/lstmn/emb_zh.npy',allow_pickle=True)
+    eng = np.load('emb_en.npy',allow_pickle=True)
+    chn = np.load('emb_zh.npy',allow_pickle=True)
     counter = 0
     while counter < n_iters:
         randomidx = random.randint(1, 14999)
