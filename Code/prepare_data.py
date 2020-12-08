@@ -1,5 +1,4 @@
 import random, re, os
-from tqdm import tqdm
 
 def filter_data(line, clean_mode):
     line = line.strip()
@@ -14,15 +13,15 @@ def filter_data(line, clean_mode):
         return not bool(re.search(r'[A-Za-z0-9]|《|》|「|」|【|】|（|）|“|‘|\*|\'|\-', line))
 
 def read_data():
-    src_lines = open('../Data/en-zh/UNv1.0.en-zh.en', 'r').readlines()
-    targ_lines = open('../Data/en-zh/UNv1.0.en-zh.zh', 'r', encoding='utf-8').readlines()
+    src_lines = open('../Data/UNv1.0.en-zh/UNv1.0.en-zh.en', 'r', encoding='utf-8').readlines()
+    targ_lines = open('../Data/UNv1.0.en-zh/UNv1.0.en-zh.zh', 'r', encoding='utf-8').readlines()
 
     temp_src_lines = []
     temp_targ_lines = []
-    for i, src in enumerate(tqdm(src_lines)):
+    for i, src in enumerate(src_lines):
         targ = targ_lines[i]
         if filter_data(src, 'en') and filter_data(targ, 'zh'): # the order is important
-            if len(src) > 50 or len(src) > 9 * len(targ) or len(targ) > 9 * len(src):
+            if len(src) > 100 or len(src) > 9 * len(targ) or len(targ) > 9 * len(src) or len(targ) <=10 or len(src) <=10:
                 continue
             else:
                 temp_src_lines.append(src)
@@ -32,15 +31,15 @@ def read_data():
     print("en: %d, zh: %d" % (len(temp_src_lines), len(temp_targ_lines)))
 
     random.seed(666)
-    src_lines = random.sample(temp_src_lines, 10000)
+    src_lines = random.sample(temp_src_lines, 50000)
     random.seed(666)
-    targ_lines = random.sample(temp_targ_lines, 10000)
+    targ_lines = random.sample(temp_targ_lines, 50000)
     
 
-    with open('../Data/cleaned_data/my_en-zh.en','w') as f:
+    with open('../Data/cleaned_data/my_en-zh.en','w', encoding='utf-8') as f:
         for src in src_lines:
             f.write(src)
-    with open('../Data/cleaned_data/my_en-zh.zh','w') as f:
+    with open('../Data/cleaned_data/my_en-zh.zh','w', encoding='utf-8') as f:
         for targ in targ_lines:
             f.write(targ)
 
