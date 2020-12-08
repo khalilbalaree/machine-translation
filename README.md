@@ -39,3 +39,6 @@ Run the RNN encoder decoder with attention mechanism by
 ### Step 5:
 Run the RNN encoder decoder with intra-attention by  
 ```python3 intraAttention.py```
+
+## Final paper
+You can find our paper in [final_paper/paper.pdf](final_paper/paper.pdf)
